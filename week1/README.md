@@ -1,73 +1,21 @@
-# React + TypeScript + Vite
+# Front-End Week 1: 반응형 네비게이션 바
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+순수 HTML/CSS/JS만으로 만든 **반응형 네비게이션 바**입니다.
 
-Currently, two official plugins are available:
+## ✅ 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 데스크톱: 로고 + 가로 메뉴
+- 모바일(≤768px): 햄버거 버튼 노출, 클릭 시 메뉴 토글
+- 호버 시 강조 색상
 
-## React Compiler
+## 💡 구현 포인트
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `flex`로 좌우 정렬, `gap`으로 메뉴 간격
+- 미디어쿼리(`@media (max-width: 768px)`)로 모바일 레이아웃 전환
+- JS로 `.active` 클래스 토글하여 메뉴 열고/닫기
 
-## Expanding the ESLint configuration
+## 🔁 React + TypeScript 변환 계획
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. `document.querySelector`/`classList.toggle` → `useState`로 치환
+2. `<a>` 토글 요소 → `<button>` + `aria-expanded`로 접근성 강화
+3. CSS는 `Navbar.css`로 분리 후 `Navbar.tsx`에서 import

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반응형 네이게이션 바</title>
+  <style>
+    /*기본 스타일 초기화*/
+    body, ul, li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /*네비게이션 바 스타일*/
+    .navbar{
+      display: flex;
+      justify-content: space-between; /*양쪽 끝으로 정렬*/
+      align-items: center;
+      background-color: #333;
+      padding: 8px 12px;
+      color: white;
+    }
+
+    .nav-logo a {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav-menu{
+      display: flex;
+      gap: 20px; /*메뉴 아이템 간 간격*/
+    }
+
+    .nav-menu a:hover{
+      color: #58ffac;
+    }
+
+    /*햄버거 토글 버튼 - 평소에는 숨김*/
+    .nav-toggle{
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    /* --- 반응형 처리 --- */
+    /* 화면 너비가 768px 이하일 때 적용 */
+    @media screen and (max-width: 768px) {
+        .nav-menu {
+            display: none; /* 메뉴를 기본적으로 숨김 */
+            flex-direction: column; /* 세로로 정렬 */
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 60px; /* 네비게이션 바 높이만큼 아래에 위치 */
+            left: 0;
+            background-color: #333;
+        }
+
+        .nav-menu li {
+        padding: 10px 0;
+        }
+            
+        /* active 클래스가 추가되면 메뉴를 보여줌 */
+        .nav-menu.active {
+            display: flex;
+        }
+
+        .nav-toggle {
+            display: block; /* 토글 버튼을 보여줌 */
+        }
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-logo">
+      <a href="#">MyLogo</a>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Portfolio</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <a href="#" class="nav-toggle">
+      &#9776;
+    </a>
+  </nav>
+  <script>
+    // 필요한 DOM 요소들을 선택
+    const toggleButton = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // 토글 버튼에 클릭 이벤트 추가
+    toggleButton.addEventListener('click', () => {
+      // nav-menu에 'active' 클래스를 추가하거나 제거
+      navMenu.classList.toggle('active');
+    })
+  </script>
+</body>
+</html>

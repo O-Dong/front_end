@@ -14,6 +14,12 @@
 - 미디어쿼리(`@media (max-width: 768px)`)로 모바일 레이아웃 전환
 - JS로 `.active` 클래스 토글하여 메뉴 열고/닫기
 
+## 🖼️ 미리보기
+<img width="1919" height="442" alt="image" src="https://github.com/user-attachments/assets/0f120d74-b48a-40df-b88a-657583ba6841" />
+
+<img width="1919" height="840" alt="image" src="https://github.com/user-attachments/assets/7f146500-0299-4b61-ba17-8a9b90cb07a4" />
+
+
 ## 🔁 React + TypeScript 변환 계획
 
 1. `document.querySelector`/`classList.toggle` → `useState`로 치환

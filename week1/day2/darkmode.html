@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>다크 모드 토글</title>
+  <style>
+    /*CSS 변수를 사용하여 테마 색상을 관리*/
+    /*root는 문서의 최상위 요소를 의미하며, 전역 변수를 선언하기 좋음*/
+    :root {
+      --background-color: #ffff;
+      --text-color: #333333;
+      --button-bg-color: #f0f0f0;
+      --button-text-color: #333333;
+    }
+
+    /*body에 dark mode 클래스가 추가되면 :root에 선언했던 변수 값을 덮어씀*/
+    body.dark-mode {
+      --background-color: #2c2c2c;
+      --text-color: #ffffff;
+      --button-bg-color: #555555;
+      --button-text-color: #ffffff;
+    }
+
+    /*기본 스타일*/
+    body {
+      /* var() 함수로 변수 값을 가져와 사용 */
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      /* 색상 전환 시 부드러운 효과*/
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    #theme-toggle {
+      padding: 10px 20px;
+      border: 1px solid var(--text-color);
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      background-color: var(--button-bg-color);
+      color: var(--button-text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>안녕하세요!</h1>
+    <p>버튼을 눌러 다크 모드와 라이트 모드를 전환해보세요.</p>
+    <button id="theme-toggle">다크 모드 전환</button>
+  </div>
+
+  <script>
+    // 필요한 DOM 요소를 선택
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // 페이지 로드 시 사용자의 테마 설정을 확인하고 적용
+    // localStorage에 'theme' 값이 'dark'로 설정되어 있으면 다크 모드 적용
+    if(localStorage.getItem('theme') == 'dark'){
+      body.classList.add('dark-mode');
+      themeToggleButton.innerText = '라이트 모드 전환';
+    }
+
+    // 테마 전환 버튼에 클릭 이벤트를 추가
+    themeToggleButton.addEventListener('click', () => {
+      // body에 'dark- mode' 클래스를 토글(추가/제거)
+      body.classList.toggle('dark-mode');
+
+      // 현재 테마 상태를 변수에 저장
+      let currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+
+      // 버튼 텍스트를 현재 테마에 맞게 변경
+      if(currentTheme == 'dark'){
+        themeToggleButton.innerText = '라이트 모드 전환';
+      }
+      else{
+        themeToggleButton.innerText = '다크 모드 전환';
+      }
+      
+      // 사용자의 테마 선택을 localStorage에 저장하여 다음 방문 시에도 유지
+      localStorage.setItem('theme', currentTheme);
+    })
+  </script>
+  
+</body>
+</html>

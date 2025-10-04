@@ -18,6 +18,8 @@ CSS 변수와 `localStorage`를 활용해 사용자의 테마 설정을 기억�
 - `transition`으로 색상 변경 시 자연스러운 애니메이션 효과
 
 ## 🖼️ 미리보기
+<img width="920" height="276" alt="image" src="https://github.com/user-attachments/assets/2f77ea5b-0ef0-474b-922d-3aabce1718d0" />
+<img width="1017" height="290" alt="image" src="https://github.com/user-attachments/assets/d7eec030-775a-4d57-aa1f-c87bb0da15f0" />
 
 ## 🔁 React + TypeScript 변환 계획
 

@@ -19,7 +19,8 @@
 
 ## 🖼️ 미리보기
 
-(이미지 또는 GIF 추가 예정)
+<img width="945" height="400" alt="image" src="https://github.com/user-attachments/assets/9fd2f302-81f7-4ba1-bd4a-6119e7ae1c08" />
+<img width="953" height="413" alt="image" src="https://github.com/user-attachments/assets/e0deee1b-01cf-403f-8064-7a390d979082" />
 
 ## 🔁 React + TypeScript 변환 계획
 

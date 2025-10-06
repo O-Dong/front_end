@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아코디언 메뉴</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .accordion-container {
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .accordion-item {
+      background-color: #fff;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      overflow: hidden; /*transition 효과를 주기 위함*/
+    }
+
+    .accordion-title {
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      user-select: none; /*텍스트 드래그 방지*/
+    }
+
+    .accordion-title::after {
+      content: '▼';
+      font-size: 12px;
+      transition: transform 0.3s;
+    }
+
+    .accordion-item.active .accordion-title::after {
+      transform: rotate(180deg); /*active시 화살표 회전*/
+    }
+
+    .accordion-content {
+      padding: 0 15px;
+      max-height: 0; /*기본적으로 콘텐츠 영역 높이를 0으로 설정*/
+      overflow: hidden; /*내용이 max-height를 넘어가면 숨김*/
+      transition: max-height 0.3s ease-out, padding 0.3s ease-out; /*부드러운 효과*/
+    }
+
+    .accordion-item.active .accordion-content {
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="accordion-container">
+    <h2>단일 오픈 아코디언</h2>
+    <div id="accordion-single">
+      <div class="accordion-item">
+        <div class="accordion-title">질문 1</div>
+        <div class="accordion-content">
+          <p>첫 번째 질문에 대한 답변입니다.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">질문 2</div>
+        <div class="accordion-content">
+          <p>두 번째 질문에 대한 답변입니다.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">질문 3</div>
+        <div class="accordion-content">
+          <p>세 번째 질문에 대한 답변입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-container">
+    <h2>다중 오픈 아코디언</h2>
+    <div id="accordion-multi">
+      <div class="accordion-item">
+        <div class="accordion-title">항목 A</div>
+        <div class="accordion-content">
+          <p>첫 번째 항목에 대한 내용입니다.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">항목 B</div>
+        <div class="accordion-content">
+          <p>두 번째 항목에 대한 내용입니다.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-title">항목 C</div>
+        <div class="accordion-content">
+          <p>세 번째 항목에 대한 내용입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 버전 1: 단일 오픈 아코디언 로직
+    const singleAccordion = document.getElementById('accordion-single');
+    const singleItems = singleAccordion.querySelectorAll('.accordion-item');
+
+    singleItems.forEach(item => {
+      const title = item.querySelector('.accordion-title');
+
+      title.addEventListener('click', () => {
+        // 클릭한 항목이 이미 열려있는지 확인
+        const isActive = item.classList.contains('active');
+
+        // 모든 항목을 일단 닫음
+        singleItems.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.accordion-content').style.maxHeight = null;
+        });
+
+        // 만약 클릭한 항목이 닫혀 있었다면, 그 항목만 열어줌
+        if (!isActive){
+          item.classList.add('active');
+          const content = item.querySelector('.accordion-content');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // 버전 2: 다중 오픈 아코디언 로직
+    const multiAccordion = document.getElementById('accordion-multi');
+    const multiItems = multiAccordion.querySelectorAll('.accordion-item');
+
+    multiItems.forEach(item => {
+      const title = item.querySelector('.accordion-title');
+      const content = item.querySelector('.accordion-content');
+
+      title.addEventListener('click', () => {
+        // 클릭한 아이템의 active 클래스를 토글
+        item.classList.toggle('active');
+
+        // active 상태에 따라 max-height를 조절
+        if(item.classList.contains('active')){
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+        else {
+          content.style.maxHeight = null;
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

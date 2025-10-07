@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모달 컴포넌트</title>
+  <style>
+
+    body {
+      font-family: sans-serif;
+    }
+
+    /*모달 뒷 배경*/
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+
+      /*Flexbox를 이용해 자식 요소를 중앙에 정렬*/
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /*기본적으로는 숨겨둠*/
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    /*show 클래스가 추가되면 모달을 보여줌*/
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /*모달창 본체*/
+    .modal-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      text-align: center;
+
+      /*모달이 나타날 때 약간의 애니메이션 효과*/
+      transform: translateY(-20px);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.show .modal-content {
+      transform: translateY(0);
+    }
+
+    /*닫기 버튼*/
+    .close-button {
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>모달 컴포넌트</h1>
+  <p>아래 버튼을 눌러 모달창을 열어보세요.</p>
+  <button id="open-modal-btn">모달열기</button>
+
+  <div id="my-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-button">&times;</button>
+      <h2>안녕하세요!</h2>
+      <p>이것은 모달 팝업창입니다.</p>
+    </div>
+  </div>
+
+  <script>
+    const openModalBtn = document.getElementById('open-modal-btn');
+    const modalOverlay = document.getElementById('my-modal');
+    const closeButton = modalOverlay.querySelector('.close-button');
+
+    // 모달 열기 버튼 클릭 시
+    openModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.add('show');
+    });
+
+    // 닫기 버튼 클릭 시
+    closeButton.addEventListener('click', () => {
+      modalOverlay.classList.remove('show');
+    });
+
+    // 모달 뒷배경 클릭 시
+    modalOverlay.addEventListener('click', (event) => {
+      // 이벤트가 발생한 요소가 모달 배경 자체인지 확인
+      // 콘텐츠 영역을 클릭해도 닫히지 않도록 함
+      if(event.target === modalOverlay) {
+        modalOverlay.classList.remove('show');
+      }
+    })
+  </script>
+  
+</body>
+</html>

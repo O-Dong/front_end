@@ -23,4 +23,7 @@
 
 ## 🖼️ 미리보기
 
-(이미지 또는 GIF 추가 예정)
+<img width="676" height="407" alt="image" src="https://github.com/user-attachments/assets/66acc3cd-f0b5-4849-8c60-17615cbae090" />
+<img width="688" height="402" alt="image" src="https://github.com/user-attachments/assets/40542204-7ebf-4d80-b1f8-19bd0f85b355" />
+<img width="689" height="599" alt="image" src="https://github.com/user-attachments/assets/489d419c-8d24-49cc-abaf-70445d3c93c7" />
+

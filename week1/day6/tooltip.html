@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>툴팁 효과</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f7ff;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    /*툴팁을 감싸는 컨테이너*/
+    .tooltip-container {
+      position: relative; /*툴팁 위치의 기준점*/
+      display: inline-block; /*텍스트 길이에 맞게 너비 조절*/
+    }
+
+    /*툴팁이 달릴 텍스트*/
+    .tooltip-trigger {
+      cursor: pointer;
+      border-bottom: 2px dotted #007bff;
+      font-weight: bold;
+    }
+
+    /*툴팁 말풍선 본체 스타일*/
+    .tooltip-content {
+      position: absolute;
+      bottom: 125%; /*트리거 텍스트 위쪽에 위치*/
+      left: 50%;
+      transform: translateX(-50%); /*수평 중앙 정렬*/
+
+      background-color: #333;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      white-space: nowrap; /*툴팁 내용이 줄바꿈되지 않도록*/
+
+      /*기본적으로 숨김 처리*/
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 10;
+    }
+
+    /*툴팁 말풍선의 꼬리 만들기*/
+    .tooltip-content::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent; /*위쪽 테두리만 색상 적용*/
+    }
+
+    /*트리거에 마우스를 올렸을 때 툴팁을 보여줌*/
+    .tooltip-container:hover .tooltip-content {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+  </style>
+</head>
+<body>
+  <div>
+    <h1>CSS 툴팁 효과</h1>
+    <p>
+      이
+      <span class="tooltip-container">
+        <span class="tooltip-trigger">텍스트</span>
+        <span class="tooltip-content">여기에 설명이 나타납니다.</span>
+      </span>
+      에 마우스를 올려보세요!
+    </p>
+  </div>
+</body>
+</html>

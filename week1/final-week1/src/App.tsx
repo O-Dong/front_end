@@ -1,6 +1,8 @@
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar';
 import Tabs from './components/Tabs';
+import Accordion from './components/Accordion';
+import { faqs } from './data/faqData';
 
 // App 컴포넌트: 전체 페이지의 테마(다크/라이트)와 탭 상태를 관리
 function App() {
@@ -10,7 +12,7 @@ function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   // 현재 활성화된 탭 이름 ('Profile', 'Settings', 'Billing' 중 하나)
   const [activeTab, setActiveTab] = useState('Profile');
-  const tabs = ['Profile', 'Settings', 'Billing'];
+  const tabs = ['Profile', 'FAQ', 'Billing'];
 
   // 테마 전환 함수: light ↔ dark 토글
   const handleToggleTheme = () => {
@@ -53,6 +55,14 @@ function App() {
               <p className='text-gray-700 dark:text-gray-300 mt-2'>유저의 프로필 정보가 여기에 표시됩니다.</p>
             </div>
           )}
+          {/* FAQ 탭 콘텐츠: 선택된 경우에만 표시되는 섹션 */}
+          {activeTab === 'FAQ' && (
+            <div>
+              <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-4'>자주 묻는 질문 (FAQ)</h2>
+              <Accordion items={faqs} />
+            </div>
+          )}
+          
           {activeTab === 'Billing' && (
             <div>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Billing Details</h2>

@@ -1,13 +1,18 @@
 import React from "react";
 
-// Navbar가 받을 Props의 타입 정의
-// 부포 컴포넌트로부터 테마 전환 함수를 받아옴
+// Navbar 컴포넌트 Props 타입 정의
+// 상위(App) 컴포넌트로부터 테마 전환 함수(onToggleTheme)를 전달받음
 interface NavbarProps {
   onToggleTheme: () => void;
 }
 
+// Navbar 컴포넌트
+// 페이지 상단 고정 네비게이션 바로, 프로젝트 제목과 테마 전환 버튼을 표시
 const Navbar: React.FC<NavbarProps> = ({ onToggleTheme }) => {
   return (
+    // 상단 네비게이션 영역
+    // Tailwind의 dark 모드에 따라 배경색 자동 변경
+    // sticky로 항상 화면 상단에 고정, z-index로 겹침 방지
     <nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">

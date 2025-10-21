@@ -3,6 +3,9 @@ import Navbar from './components/Navbar';
 import Tabs from './components/Tabs';
 import Accordion from './components/Accordion';
 import { faqs } from './data/faqData';
+import Modal from './components/Modal';
+import ToolCard from './components/ToolCard';
+import { tools, type Tool } from './data/toolData';
 
 // App 컴포넌트: 전체 페이지의 테마(다크/라이트)와 탭 상태를 관리
 function App() {
@@ -11,8 +14,13 @@ function App() {
   // 로컬 스토리지에 저장된 이전 테마가 있으면 불러오고, 없으면 기본값 'light' 사용
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   // 현재 활성화된 탭 이름 ('Profile', 'Settings', 'Billing' 중 하나)
-  const [activeTab, setActiveTab] = useState('Profile');
-  const tabs = ['Profile', 'FAQ', 'Billing'];
+  const [activeTab, setActiveTab] = useState('Tools');
+  const tabs = ['Tools', 'FAQ', 'Billing'];
+
+  // 모달 관리를 위한 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+
 
   // 테마 전환 함수: light ↔ dark 토글
   const handleToggleTheme = () => {
@@ -20,6 +28,16 @@ function App() {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme); // 변경된 테마를 로컬 스토리지에 저장
   };
+
+  // 카드 클릭 및 모달 핸들러
+  const handleCardClick = (tool: Tool) => {
+    setSelectedTool(tool); // 클릭된 카드의 정보를 상태에 저장
+    setIsModalOpen(true); // 모달을 열음
+  }
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // 모달을 닫음
+    setSelectedTool(null); // 선택된 툴 정보를 초기화
+  }
 
   // 테마 상태 변화 감지
   // theme 값이 바뀔 때마다 <html> 태그(classList)에 'dark' 클래스를 추가/삭제
@@ -49,10 +67,15 @@ function App() {
         <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
         {/* 탭 콘텐츠: activeTab 값에 따라 다른 내용 표시 */}
         <div className='mt-8'>
-          {activeTab === 'Profile' && (
-            <div>
-              <h2 className='text-2xl font-bold text-gray-900 dark:text-white'>Profile Information</h2>
-              <p className='text-gray-700 dark:text-gray-300 mt-2'>유저의 프로필 정보가 여기에 표시됩니다.</p>
+          {activeTab === 'Tools' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {tools.map((tool) => (
+                <ToolCard
+                  key={tool.id}
+                  tool={tool}
+                  onCardClick={handleCardClick}
+                />
+              ))}
             </div>
           )}
           {/* FAQ 탭 콘텐츠: 선택된 경우에만 표시되는 섹션 */}
@@ -71,6 +94,13 @@ function App() {
           )}
         </div>
       </main>
+
+      {/*모달 컴포넌트 (항상 렌더링 하되, isOpen 상태에 따라 보임/숨김*/}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        tool={selectedTool}
+      />
     </div>
   );
 };
